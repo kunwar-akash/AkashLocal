@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface AnimatedCounterProps {
@@ -23,28 +22,33 @@ export function AnimatedCounter({
   useEffect(() => {
     if (!inView) return;
 
+    // Respect reduced motion — show final value immediately, no animation
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCount(value);
+      return;
+    }
+
     const startTime = performance.now();
+    let rafId: number;
+
     const animate = (currentTime: number) => {
       const elapsed = (currentTime - startTime) / 1000;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 4);
       setCount(Math.floor(eased * value));
 
-      if (progress < 1) requestAnimationFrame(animate);
+      if (progress < 1) {
+        rafId = requestAnimationFrame(animate);
+      }
     };
 
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
   }, [inView, value, duration]);
 
   return (
-    <motion.span
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.3 }}
-    >
+    <span ref={ref} className={className}>
       {prefix}{count}{suffix}
-    </motion.span>
+    </span>
   );
 }

@@ -15,11 +15,11 @@ export const portfolioData: Portfolio = {
     mission:
       "To build AI-powered products that solve real problems — and to actually ship them. Not to demo, not to plan, but to build working products that make a difference. AI compresses timelines; engineering discipline makes them reliable.",
     funFacts: [
-      "Built this entire portfolio through AI-assisted development with Claude Code",
       "40+ production releases shipped with zero critical escapes to millions of users",
       "Obsessed with understanding systems at the architecture level, not just the surface",
       "Uses Claude Code, ChatGPT, and Gemini every day — not occasionally, but as core tools",
       "Believes the best engineers are the best detectives — they find root causes, not symptoms",
+      "Ships working software first, then optimizes — no goldplating, no premature abstraction",
     ],
     social: [
       {
@@ -116,7 +116,6 @@ export const portfolioData: Portfolio = {
         "~40% reduction in production defect rate through systematic API analysis, structured RCA, and proactive cross-team engineering collaboration",
         "98% on-time sprint delivery rate across 25+ release cycles in a high-velocity Agile environment",
         "40+ production releases shipped with zero critical defect escapes to millions of end users",
-        "Built this portfolio entirely through AI-assisted development — demonstrating practical AI engineering capability",
         "Recognized internally for end-to-end technical ownership and cross-team engineering collaboration",
       ],
       technologies: [
@@ -187,7 +186,7 @@ export const portfolioData: Portfolio = {
         { name: "LLM Integration", level: "intermediate", proficiency: 65 },
         { name: "AI Workflow Design", level: "intermediate", proficiency: 72 },
         { name: "AI Automation", level: "intermediate", proficiency: 68 },
-        { name: "Vibe Coding", level: "advanced", proficiency: 82 },
+        { name: "AI-Assisted Workflows", level: "advanced", proficiency: 82 },
       ],
     },
     {
@@ -547,9 +546,9 @@ export const portfolioData: Portfolio = {
     {
       id: "rapid-prototyping",
       title: "Rapid Prototyping",
-      description: "Moving from idea to working product in hours using AI-assisted development, modern frameworks, and iterative vibe coding techniques.",
+      description: "Moving from idea to working product fast — using modern frameworks, AI tooling, and iterative engineering to reduce time-to-working-software.",
       icon: "Zap",
-      tags: ["AI-Assisted", "Vibe Coding", "Speed"],
+      tags: ["AI Tooling", "Speed", "Iteration"],
       color: "#ec4899",
     },
     {
@@ -781,16 +780,6 @@ export const portfolioData: Portfolio = {
       icon: "Target",
     },
     {
-      id: "ai-portfolio",
-      title: "Build the Portfolio as Proof-of-Work",
-      context: "Listing 'AI tools' on a resume doesn't prove AI engineering ability — anyone can write that. The standard approach is to claim capability and hope the interviewer believes it. That felt like the wrong bet.",
-      choice: "Built this entire portfolio through AI-assisted development using Claude Code — making the artifact itself the demonstration. The product you are viewing IS the evidence of AI capability, not a description of it.",
-      outcome: "A live, production-ready application that proves AI engineering skill in the most direct way possible: by being the product of it. No demos, no descriptions — the proof is the thing itself.",
-      domain: "Personal Project · AI Engineering",
-      color: "#7c3aed",
-      icon: "Brain",
-    },
-    {
       id: "contract-api-testing",
       title: "Contract-First API Testing",
       context: "Frequent microservice changes at EarthLink caused silent downstream regressions — services changed their contracts and downstream consumers broke, but the failure was discovered in production, not before. MTTR was high.",
@@ -869,13 +858,6 @@ export const portfolioData: Portfolio = {
         category: "methodology",
       },
       {
-        name: "Vibe Coding",
-        icon: "Layers",
-        description: "Conversational, iterative AI-driven development — describe intent in natural language, refine through dialogue.",
-        level: "active",
-        category: "methodology",
-      },
-      {
         name: "Rapid Prototyping",
         icon: "Rocket",
         description: "Leveraging AI to compress idea-to-prototype timelines from days to hours for proof-of-concepts.",
@@ -910,7 +892,7 @@ export const portfolioData: Portfolio = {
         name: "Claude Code",
         icon: "Cpu",
         description: "Anthropic's AI coding assistant",
-        usage: "Built and enhanced this portfolio. Primary tool for AI-assisted development, code review, and architectural decisions.",
+        usage: "Primary tool for AI-assisted development, architecture design, code review, debugging, and rapid prototyping across projects.",
         category: "ai-model",
       },
       {
@@ -1088,15 +1070,6 @@ export const portfolioData: Portfolio = {
 
     projects: [
       {
-        id: "portfolio-website",
-        title: "This Portfolio Website",
-        description: "Designed and built entirely through AI-assisted development using Claude Code. Migrated from Next.js 15 to React + Vite + TypeScript + Tailwind CSS v4 via AI-driven conversation and iteration.",
-        status: "completed",
-        technologies: ["Claude Code", "React", "TypeScript", "Vite", "Tailwind CSS v4", "Framer Motion"],
-        outcome: "A production-ready portfolio that demonstrates real AI-assisted development — not just a talking point, but the actual product you are viewing right now.",
-        tags: ["AI Development", "React", "Claude Code", "Vibe Coding"],
-      },
-      {
         id: "ai-test-case-generator",
         title: "AI Test Case Generator",
         description: "Concept project using structured prompt engineering to generate comprehensive, edge-case-aware test cases directly from user story descriptions and acceptance criteria.",
@@ -1167,9 +1140,9 @@ export const portfolioData: Portfolio = {
       },
       {
         label: "AI Projects & Experiments",
-        value: 6,
+        value: 5,
         suffix: "+",
-        description: "Projects built or explored using AI-assisted development and prompt engineering",
+        description: "AI engineering experiments and prompt engineering research across real use cases",
         icon: "FlaskConical",
       },
       {

@@ -19,7 +19,6 @@ import {
 import { portfolioData } from '@/data/portfolio';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { staggerContainer, staggerItem } from '@/utils/animations';
 import { cn } from '@/lib/utils';
 import type { AiSkillCat } from '@/types';
 
@@ -79,16 +78,13 @@ export function AISkills() {
           description="How I leverage AI tools, prompt engineering, and systematic thinking to solve complex engineering problems faster and more effectively."
         />
 
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={staggerContainer}
-          className="space-y-8"
-        >
-          {/* Filter tabs */}
+        <div className="space-y-8">
+          {/* Filter tabs — entrance animation tied to inView */}
           <motion.div
-            variants={staggerItem}
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
             className="flex flex-wrap justify-center gap-2"
           >
             {FILTER_OPTIONS.map((opt) => (
@@ -107,7 +103,7 @@ export function AISkills() {
             ))}
           </motion.div>
 
-          {/* Cards grid */}
+          {/* Cards grid — independent from inView, always responds to filter changes */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFilter}
@@ -123,7 +119,9 @@ export function AISkills() {
                 return (
                   <motion.div
                     key={skill.name}
-                    variants={staggerItem}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
                     className="glass-card rounded-2xl border border-border p-5 group hover:border-primary/30 transition-all"
                     whileHover={{ y: -4, scale: 1.01 }}
                   >
@@ -164,7 +162,7 @@ export function AISkills() {
               })}
             </motion.div>
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

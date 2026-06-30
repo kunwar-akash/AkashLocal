@@ -199,10 +199,12 @@
 
   .cursor-dot {
     @apply fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference;
+    will-change: transform;
   }
 
   .cursor-ring {
     @apply fixed top-0 left-0 w-8 h-8 border-2 border-primary rounded-full pointer-events-none z-[9998] mix-blend-difference;
+    will-change: transform;
   }
 }
 
@@ -227,6 +229,18 @@
 }
 
 /* ── Standalone (non-layer) styles ──────────────────────────────────────── */
+/* ── Reduced-motion global override ────────────────────────────────────────── */
+/* Pause all CSS animations and transitions for users who opt out of motion.
+   Framer Motion and canvas animations respect this separately in component code. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .cursor-glow {
   pointer-events: none;
   position: fixed;
@@ -239,6 +253,7 @@
   transform: translate(-50%, -50%);
   z-index: 1;
   transition: opacity 0.3s ease;
+  will-change: left, top;
 }
 
 .timeline-connector {

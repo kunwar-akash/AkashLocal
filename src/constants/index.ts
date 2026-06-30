@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   name: 'Akash Kunwar',
   title: 'Akash Kunwar | AI Product Engineer & Full-Stack Builder',
   description:
-    'AI Product Engineer who builds web applications, integrates LLMs into real products, and ships production software. Experienced in React, TypeScript, REST APIs, and AI-assisted development with Claude, ChatGPT, and Gemini.',
+    'AI Product Engineer who builds web applications, integrates LLMs into real products, and ships production software. Experienced in React, TypeScript, REST APIs, and AI engineering.',
   url: 'https://akashkunwar.dev',
   ogImage: '/og-image.png',
   author: 'Akash Kunwar',
@@ -20,14 +20,12 @@ export const SITE_CONFIG = {
     'TypeScript Developer',
     'AI Integration',
     'Prompt Engineer',
-    'Claude Code',
     'AI Workflow Design',
     'Generative AI',
     'Agentic AI',
     'REST API',
     'DigiMantra Labs',
     'EarthLink',
-    'Vibe Coding',
   ],
 } as const;
 
@@ -36,7 +34,8 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'AI', href: '/ai' },
+  { label: 'How I Use AI', href: '/how-i-use-ai' },
+  { label: 'AI Engineering', href: '/ai' },
   { label: 'Skills', href: '/skills' },
   { label: 'Blog', href: '/blog' },
   { label: 'Resume', href: '/resume' },

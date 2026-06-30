@@ -10,7 +10,16 @@ interface Particle {
   alpha: number;
 }
 
+// Max distance² for particle connections (80px → 80*80 = 6400).
+// Keeping as squared avoids Math.sqrt for all pairs that don't connect.
+const CONNECT_DIST = 80;
+const CONNECT_DIST_SQ = CONNECT_DIST * CONNECT_DIST;
+
 export function ParticleBackground() {
+  // Respect the user's motion preference — skip the entire canvas when set.
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return null;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const particlesRef = useRef<Particle[]>([]);
@@ -20,7 +29,8 @@ export function ParticleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    // `willReadFrequently: false` lets the browser optimize for write-only canvas.
+    const ctx = canvas.getContext('2d', { willReadFrequently: false });
     if (!ctx) return;
 
     const resize = () => {
@@ -29,7 +39,10 @@ export function ParticleBackground() {
     };
 
     const initParticles = () => {
-      const count = Math.floor((canvas.width * canvas.height) / 20000);
+      // Cap at 50 particles max — limits connection checks to 50*49/2 = 1225 per frame
+      // (vs ~5000 for 100 particles on a 1080p screen).
+      const density = Math.floor((canvas.width * canvas.height) / 22000);
+      const count = Math.min(density, 50);
       particlesRef.current = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -43,11 +56,13 @@ export function ParticleBackground() {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const color = resolvedTheme === 'dark' ? '59, 130, 246' : '37, 99, 235';
+      const pts = particlesRef.current;
 
-      particlesRef.current.forEach((p) => {
+      // Update positions
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i]!;
         p.x += p.vx;
         p.y += p.vy;
-
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
@@ -57,22 +72,24 @@ export function ParticleBackground() {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${color}, ${p.alpha})`;
         ctx.fill();
-      });
+      }
 
-      for (let i = 0; i < particlesRef.current.length; i++) {
-        for (let j = i + 1; j < particlesRef.current.length; j++) {
-          const a = particlesRef.current[i];
-          const b = particlesRef.current[j];
-          if (!a || !b) continue;
+      // Draw connections using squared distance — sqrt only for connected pairs
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const a = pts[i]!;
+          const b = pts[j]!;
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < 120) {
+          if (distSq < CONNECT_DIST_SQ) {
+            // Only compute sqrt for pairs that will actually render
+            const dist = Math.sqrt(distSq);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(${color}, ${0.08 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(${color}, ${0.08 * (1 - dist / CONNECT_DIST)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -82,16 +99,31 @@ export function ParticleBackground() {
       animationRef.current = requestAnimationFrame(draw);
     };
 
-    const handleResize = () => { resize(); initParticles(); };
+    const handleResize = () => {
+      resize();
+      initParticles();
+    };
+
+    // Pause rendering when the tab is hidden — saves battery and CPU
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationRef.current);
+      } else {
+        animationRef.current = requestAnimationFrame(draw);
+      }
+    };
 
     resize();
     initParticles();
     draw();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       cancelAnimationFrame(animationRef.current);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [resolvedTheme]);
 

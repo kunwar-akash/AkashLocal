@@ -47,7 +47,7 @@ export function AIProjects() {
         <SectionHeader
           label="// ai projects"
           title="AI Projects & Experiments"
-          description="Projects built with AI assistance and experiments exploring AI capabilities in engineering contexts. Concepts and experiments are clearly labeled."
+          description="AI engineering experiments and research projects exploring LLM capabilities, prompt engineering, and intelligent automation across real use cases."
         />
 
         <motion.div

@@ -5,7 +5,10 @@
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#3b82f6" />
+    <!-- Match the actual violet primary: #7C3AED -->
+    <meta name="theme-color" content="#7C3AED" />
+    <meta name="description" content="Akash Kunwar — AI Product Engineer who builds web applications, integrates LLMs into real products, and ships production software." />
+
     <!-- Prevent flash of wrong theme before React mounts -->
     <script>
       (function () {
@@ -20,12 +23,19 @@
         }
       })();
     </script>
-    <!-- Google Fonts -->
+
+    <!--
+      Fonts: Google Fonts with optimized weight subset.
+      Inter: 400/500/600/700/800 only (removed thin 100-300 and black 900 — not used).
+      JetBrains Mono: 400/500/600 only (no italic, no thin/black — not used in the UI).
+      display=swap: text renders in fallback font while font loads, preventing invisible text.
+      Both preconnect hints are required: googleapis for the CSS, gstatic for the binary font.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
     />
   </head>
   <body>
